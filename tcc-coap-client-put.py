@@ -24,7 +24,7 @@ async def main():
 				request = coap.Message(code=coap.PUT, payload=urandom(bytes_to_send), uri="coap://localhost/testing/things", msg_type=msg_type)
 			elif bytes_to_send == 0:
 				print("Sending empty message")
-				request = coap.Message(code=coap.PUT, payload=b"", uri="coap://localhost/testing/things", msg_type=msg_type)
+				request = coap.Message(code=coap.PUT, payload=b"", uri="coap://localhost/testing/things", mtype=msg_type)
 			else:
 				break
 

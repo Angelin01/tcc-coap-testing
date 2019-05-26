@@ -21,10 +21,10 @@ async def main():
 			bytes_to_send = int(bytes_in)
 			if bytes_to_send > 0:
 				print(f"Sending {bytes_to_send} random bytes")
-				request = coap.Message(code=coap.PUT, payload=urandom(bytes_to_send), uri="coap://localhost/testing/things", mtype=msg_type)
+				request = coap.Message(code=coap.POST, payload=urandom(bytes_to_send), uri="coap://localhost/testing/things", mtype=msg_type)
 			elif bytes_to_send == 0:
 				print("Sending empty message")
-				request = coap.Message(code=coap.PUT, payload=b"", uri="coap://localhost/testing/things", mtype=msg_type)
+				request = coap.Message(code=coap.POST, payload=b"", uri="coap://localhost/testing/things", mtype=msg_type)
 			else:
 				break
 

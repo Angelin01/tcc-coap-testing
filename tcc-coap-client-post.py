@@ -24,11 +24,11 @@ async def main():
 				print(f"Sending {bytes_to_send} random bytes 100 times")
 				for _ in range(100):
 					request = coap.Message(code=coap.POST, payload=urandom(bytes_to_send), uri="coap://localhost/testing/things", mtype=msg_type)
+					response = await context.request(request).response
 					sleep(0.1)
 			else:
 				break
 
-			response = await context.request(request).response
 			print(f"Response code: {response.code}, payload: {response.payload}")
 		else:
 			print("Invalid number")

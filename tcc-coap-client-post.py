@@ -1,6 +1,7 @@
 import asyncio
 import aiocoap as coap
 from os import urandom
+from time import sleep
 
 
 async def main():
@@ -19,12 +20,11 @@ async def main():
 
 		if bytes_in.isdigit():
 			bytes_to_send = int(bytes_in)
-			if bytes_to_send > 0:
-				print(f"Sending {bytes_to_send} random bytes")
-				request = coap.Message(code=coap.POST, payload=urandom(bytes_to_send), uri="coap://localhost/testing/things", mtype=msg_type)
-			elif bytes_to_send == 0:
-				print("Sending empty message")
-				request = coap.Message(code=coap.POST, payload=b"", uri="coap://localhost/testing/things", mtype=msg_type)
+			if bytes_to_send >= 0:
+				print(f"Sending {bytes_to_send} random bytes 100 times")
+				for _ in range(100):
+					request = coap.Message(code=coap.POST, payload=urandom(bytes_to_send), uri="coap://localhost/testing/things", mtype=msg_type)
+					sleep(0.1)
 			else:
 				break
 

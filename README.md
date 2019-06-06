@@ -23,11 +23,28 @@ responds or not is up to the resource implementation, so even if the message is 
 server may still answer. This will have a difference on poor network conditions, which are not tested
 here.
 
+## Results with packet loss
+
+Tests with packets loss were performed by using iptables' statistic module and dropping packets randomly, both on
+`INPUT` and `OUTPUT`. Non confirmable messages were not tested in this case as they would obviously only be discarded.
+To avoid chances, 100 messages were sent on each attempt, with a 0.1 second delay between each one, 
+one set with only 10 bytes each and another set with 10000 bytes each, as to break the message into multiple packets. 
+The message sizes are in the tables below.
+
+Packet Loss | Message Size (10b) | Message Size (10000b) |
+|:---:|:---:|:---:|
+ 5% | 20375 | 1303222 |
+10% | 22500 | 1456192 |
+15% | 25375 | 1576714 |
+
+CoAP appears to handle packet loss surprisingly well, adding little overhead and still managing to deliver all
+message.
+
 ---
 ## Conclusion
-There is a considerable overhead even using UDP, although there is a good chance it won't grow too
-much on poor network conditions. Even then, non confirmable messages should not be used due to the
-fire and forget nature.  
+There overhead using UDP is considerably reduced, as it doesn't increase too much on poor network conditions. 
+Even then, non confirmable messages should not be used due to the fire and forget nature.  
 CoAP appears to be less supported than MQTT and slightly harder to use, at least for the Python
-implementations. The lack of IPv6 support on Windows may present an issue in the future, which
-should be taken into account.
+implementations. There is lacking Windows support (due to a missing implementation on the `asyncio` package) and
+during testing a few error messages appeared on the server's console, although they didn't seem to impact the
+message exchange. This should be taken into account.

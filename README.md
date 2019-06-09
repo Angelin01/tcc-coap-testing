@@ -53,6 +53,8 @@ Packet Loss | Packets 10b | Packets 1000b | Packets 10000b |
 
 The data in the tables above is displayed in the following graph.
 
+![Graph of number of bytes and packets transmitted by packet loss](./bytes_packets-packet_loss.png)
+
 CoAP appears to handle packet loss surprisingly well, adding little overhead and still managing to deliver all
 message.
 
